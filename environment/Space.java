@@ -1,6 +1,6 @@
 package laba3.environment;
 
-import sun.font.TrueTypeFont;
+
 
 public class Space implements ISpace {
     private int coordinatex;

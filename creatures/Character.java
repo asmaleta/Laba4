@@ -1,6 +1,6 @@
 package laba3.creatures;
 
-import laba3.environment.ISpace;
+
 import laba3.environment.Space;
 
 public abstract class Character implements ILiving {
