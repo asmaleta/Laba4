@@ -1,17 +1,19 @@
 package laba3.environment;
 
 
+import java.util.ArrayList;
 
 public class Space implements ISpace {
     private int coordinatex;
     private int coordinatey;
-    private String name;
+    private String name ;
+    private ArrayList objects;
 
     public Space( String name, int x, int y){
         this.coordinatex = x;
         this.coordinatey = y;
         this.name = name;
-
+        this.objects = new ArrayList();
     }
     @Override
     public String toString() {
@@ -23,15 +25,7 @@ public class Space implements ISpace {
         result = this.getName().hashCode() * 7 + result;
         return result;
     }
-    public boolean CheckLight(Light light){
-        if (light.getCoordinatex1() <= this.getCoordinatex() &&
-                this.getCoordinatex() <= light.getCoordinatex2() &&
-                light.getCoordinatey1() <= this.getCoordinatey() &&
-                this.getCoordinatey() <= light.getCoordinatey2()){
-            return true;
-        }
-        return false;
-    }
+
     @Override
     public boolean equals (Object o){
         if (this == o) {
@@ -47,6 +41,15 @@ public class Space implements ISpace {
                 this.getName().equals(space.getName());
     }
 
+    public ArrayList getObjects() {
+        return objects;
+    }
+    public void addToSpace(Object object) {
+        this.objects.add(object);
+    }
+    public void exitSpace(Object object) {
+        this.objects.remove(object);
+    }
     public int getCoordinatex() {
         return coordinatex;
     }

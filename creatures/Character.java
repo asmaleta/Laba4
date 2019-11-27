@@ -1,12 +1,32 @@
 package laba3.creatures;
 
 
+import javafx.scene.SnapshotParametersBuilder;
 import laba3.environment.Space;
 
 public abstract class Character implements ILiving {
 
     public enum Gender {MALE, FEMALE};
-    public enum Direction {NORTH, SOUTH, EAST, WEST};
+    public enum Direction {
+        NORTH,
+        SOUTH,
+        EAST,
+        WEST;
+    public Direction inverseDirection(Direction dir) {
+        switch (dir) {
+            case EAST:
+                return WEST;
+                case WEST:
+                    return EAST;
+                    case NORTH:
+                        return SOUTH;
+                        case SOUTH:
+                            return NORTH;
+                            default:
+                                return NORTH;
+        }
+    }
+    }
     public enum Color {GREY, YELLOW, RED, BLACK, WHITE, GREEN, BROWN};
     public enum TypeOfSkin {SHRIVELED, SMOOTH};
 
@@ -84,14 +104,13 @@ public abstract class Character implements ILiving {
     }
 
 
-    public final void go (Space centerOfRoom) {
-        if (this.space.getCoordinatex() == centerOfRoom.getCoordinatex()) {
-            this.space = centerOfRoom;
-            System.out.println(this.getName() + " движется вдоль стены");
-        } else {
-            this.space = centerOfRoom;
-            System.out.println(this.getName() + " отделилась от стены");
-        }
+    public void go(Space space) {
+        changeSpace(space);
+    }
+    public void changeSpace (Space space){
+        getSpace().exitSpace(this);
+        this.setSpace(space);
+        space.addToSpace(this);
     }
     public Color getCol(){
         return col;
@@ -105,11 +124,6 @@ public abstract class Character implements ILiving {
         return space;
     }
 
-    public void moveToSpace(Space space){
-        this.space = space;
-        System.out.println(this.getName()+" переместился в " + space.getName());
-
-    }
 
     @Override
      public void setSpace(Space space) {
@@ -119,11 +133,11 @@ public abstract class Character implements ILiving {
 
     @Override
     public int getCoordinatex() {
-        return space.getCoordinatex();
+        return getSpace().getCoordinatex();
     }
 
     @Override
     public int getCoordinatey() {
-        return space.getCoordinatey();
+        return getSpace().getCoordinatey();
     }
 }
