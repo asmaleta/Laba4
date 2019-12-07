@@ -1,6 +1,6 @@
 package laba3.environment;
 
-public class Light {
+public class Light implements IStatic {
     private String name;
     private Space space;
 
@@ -10,14 +10,31 @@ public class Light {
     }
     public String toString() {
 
-        return "Light[имя = " + this.getName() + ", место = "+ this.getSpace() + "]";
+        return "Light[имя = " + this.getName() + ", находится "+ this.getSpace() + "]";
     }
     public String getName() {
         return name;
     }
 
+    @Override
+    public int getCoordinatex() {
+        return space.getCoordinatex();
+    }
+    @Override
+    public int  getCoordinatey() {
+        return space.getCoordinatey();
+    }
 
+    public void changeSpace (Space space){
+        getSpace().exitSpace(this);
+        this.setSpace(space);
+        space.addToSpace(this);
+    }
 
+    public void setSpace(Space space) {
+
+        this.space = space;
+    }
 
     public Space getSpace() {
         return space;
@@ -28,6 +45,18 @@ public class Light {
         int result = 5;
         result = this.getName().hashCode() * 7 + result;
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Light light = (Light) o;
+        return this.getName().equals(light.getName());
     }
 
 }

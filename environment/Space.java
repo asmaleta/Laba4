@@ -3,7 +3,7 @@ package laba3.environment;
 
 import java.util.ArrayList;
 
-public class Space implements ISpace {
+public class Space implements IStatic {
     private int coordinatex;
     private int coordinatey;
     private String name ;
@@ -17,7 +17,7 @@ public class Space implements ISpace {
     }
     @Override
     public String toString() {
-        return "Space [имя = " + this.getName() +", координата x= " + this.getCoordinatex() + ", координата y= " + this.getCoordinatey() + "]";
+        return "Space [имя = " + this.getName() +", координата x = " + this.getCoordinatex() + ", координата y = " + this.getCoordinatey() + "]";
     }
     @Override
     public int hashCode(){

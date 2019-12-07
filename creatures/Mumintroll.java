@@ -1,7 +1,6 @@
 package laba3.creatures;
 
 import laba3.environment.Space;
-import laba3.environment.Light;
 
 public class Mumintroll extends Character {
 
@@ -19,8 +18,8 @@ public class Mumintroll extends Character {
     public int hashCode(){
         int result = 5;
         result = this.getName().hashCode() * 7 + result;
-        result = this.getAge() * 7 + result;
         result = this.getSmbdGender().hashCode() * 7 + result;
+        result = this.getAge() + result;
         return result;
     }
     @Override
@@ -33,8 +32,8 @@ public class Mumintroll extends Character {
             return false;
         }
         Mumintroll mumintroll = (Mumintroll) o;
-        return this.getCoordinatex() == mumintroll.getCoordinatex() &&
-                this.getCoordinatey() == mumintroll.getCoordinatey() &&
+        return this.getSmbdGender() == mumintroll.getSmbdGender()&&
+                this.getAge() == mumintroll.getAge() &&
                 this.getName().equals(mumintroll.getName());
     }
 }

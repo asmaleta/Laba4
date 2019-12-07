@@ -1,6 +1,6 @@
 package laba3.environment;
 
-public interface ISpace {
+public interface IStatic {
 
     int getCoordinatex();
     int getCoordinatey();

@@ -2,7 +2,6 @@ package laba3.creatures;
 
 import laba3.environment.Space;
 import laba3.environment.Light;
-import sun.font.TrueTypeFont;
 
 import java.util.ArrayList;
 
@@ -26,10 +25,10 @@ public class Rat extends Character {
     public int hashCode() {
         int result = 5;
         result = this.getName().hashCode() * 7 + result;
-        result = this.getAge() * 7 + result;
         result = this.getCol().hashCode() * 7 + result;
         result = this.getSmbdGender().hashCode() * 7 + result;
         result = this.getType().hashCode() * 7 + result;
+        result = this.getAge() + result;
         return result;
     }
 
@@ -42,9 +41,11 @@ public class Rat extends Character {
             return false;
         }
         Rat rat = (Rat) o;
-        return this.getCoordinatex() == rat.getCoordinatex() &&
-                this.getCoordinatey() == rat.getCoordinatey() &&
-                this.getName().equals(rat.getName());
+        return this.getSmbdGender() == rat.getSmbdGender() &&
+                this.getAge() == rat.getAge() &&
+                this.getName().equals(rat.getName()) &&
+                this.getCol() == rat.getCol() &&
+                this.getType() == rat.getType();
     }
 
     @Override
