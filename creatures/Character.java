@@ -1,9 +1,12 @@
 package laba3.creatures;
 
 
+import laba3.environment.IStatic;
 import laba3.environment.Space;
 
-public abstract class Character implements IDunamic {
+import java.util.ArrayList;
+
+public abstract class Character implements laba3.creatures.IDunamic {
 
     public enum Gender {MALE, FEMALE}
 
@@ -38,7 +41,7 @@ public abstract class Character implements IDunamic {
     public enum TypeOfSkin {SHRIVELED, SMOOTH}
 
     ;
-
+    private ArrayList<IDunamic> things = new ArrayList();
     private Gender smbdGender;
     private TypeOfSkin type;
     private Color col;
@@ -48,7 +51,7 @@ public abstract class Character implements IDunamic {
     private Space space;
 
     public Character(String name, int age, Gender smbdGender, Color col, TypeOfSkin type, Space space, Direction dir) {
-        this.space = space;
+        this.setSpace(space);
         this.name = name;
         this.age = age;
         this.smbdGender = smbdGender;
@@ -62,8 +65,33 @@ public abstract class Character implements IDunamic {
         this.age = age;
         this.smbdGender = smbdGender;
         this.dir = dir;
-        this.space = space;
+        this.setSpace(space);
     }
+    public Character(String name, int age, Gender smbdGender, Direction dir, Space space, IDunamic... things ) {
+        this.name = name;
+        this.age = age;
+        this.smbdGender = smbdGender;
+        this.dir = dir;
+        this.setSpace(space);
+        for(IDunamic obj : things) {
+            this.things.add(obj);
+        }
+
+    }
+    public Character(String name, int age, Gender smbdGender, Color col, TypeOfSkin type, Space space, Direction dir, IDunamic... things) {
+        this.name = name;
+        this.age = age;
+        this.smbdGender = smbdGender;
+        this.col = col;
+        this.type = type;
+        this.dir = dir;
+        this.setSpace(space);
+        for(IDunamic obj : things) {
+            this.things.add(obj);
+        }
+    }
+
+
 
     public void setDir(Direction dir) {
         this.dir = dir;
@@ -87,7 +115,7 @@ public abstract class Character implements IDunamic {
         return name;
     }
 
-    public final void watch(Character object) {
+    public void watch(Character object) {
         if (this.watchNowThisObject(object)) {
             System.out.println("Персонаж " + this.getName() + " посмотрел на персонажа " + object.getName());
         } else {
@@ -95,10 +123,17 @@ public abstract class Character implements IDunamic {
             this.watch(object);
         }
     }
+    public void watch(IDunamic object) {
+            System.out.println("Персонаж " + this.getName() + " посмотрел на  " + object.getName());
+    }
+    public void watch(IStatic object) {
+        System.out.println("Персонаж " + this.getName() + " посмотрел на " + object.getName());
+    }
 
     public boolean watchNowThisObject(Character object) {
         return this.dir == dir.inverseDirection(object.dir);
     }
+
 
 
     public void go(Space space) {
@@ -108,7 +143,6 @@ public abstract class Character implements IDunamic {
     public void changeSpace(Space space) {
         getSpace().exitSpace(this);
         this.setSpace(space);
-        space.addToSpace(this);
     }
 
     public Color getCol() {
@@ -126,7 +160,7 @@ public abstract class Character implements IDunamic {
 
     @Override
     public void setSpace(Space space) {
-
+        space.addToSpace(this);
         this.space = space;
     }
 
@@ -138,5 +172,26 @@ public abstract class Character implements IDunamic {
     @Override
     public int getCoordinatey() {
         return getSpace().getCoordinatey();
+    }
+
+    public ArrayList<IDunamic> getThings() {
+        return things;
+    }
+    public void addThing(IDunamic thing) {
+        this.things.add(thing);
+    }
+    public void takeThing(IDunamic thing) {
+        this.addThing(thing);
+        System.out.println(this.getName() + " взял " + thing.getName());
+    }
+    public void devNullThings() {
+        this.things = new ArrayList<IDunamic>();
+    }
+    public void deleteThing(IDunamic thing) {
+        this.things.remove(thing);
+    }
+    public void putThing(IDunamic thing, Space space) {
+        this.deleteThing(thing);
+        System.out.println(this.getName() + " положил " + thing.getName() +" в место : "+ space.getName());
     }
 }

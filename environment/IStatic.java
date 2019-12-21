@@ -2,8 +2,14 @@ package laba3.environment;
 
 public interface IStatic {
 
-    int getCoordinatex();
-    int getCoordinatey();
+    default int getCoordinatex() {
+        return 0;
+    }
+
+    default int getCoordinatey() {
+        return 0;
+    }
+    String toString();
     String getName();
 
 }

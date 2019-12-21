@@ -2,15 +2,40 @@ package laba3.creatures;
 
 import laba3.environment.Space;
 
+import java.util.ArrayList;
+
 public class Mumintroll extends Character {
 
 
     public Mumintroll(String name, int age, Gender smbdGender, Direction dir, Space space){
         super(name, age, smbdGender, dir, space );
     }
+
+
+    public Mumintroll(String name, int age, Gender smbdGender, Direction dir, Space space , IDunamic... things){
+        super(name, age, smbdGender, dir, space , things);
+    }
+
+    public void toRush (Space space) {
+        this.changeSpace(space);
+        System.out.println(this.getName() + " бросился к " + this.getSpace().getName());
+    }
+    public void sitRound () {
+        System.out.println(this.getName() + " уселся вокруг " + this.getSpace().getName());
+    }
+
+
+    public void stopShort () {
+        ArrayList objs = this.getThings();
+        for (IDunamic i: (ArrayList<IDunamic>) objs) {
+            System.out.println(this.getName() + " осекся и выпустил " + i.getName()+" , которая со звоном упала");
+        }
+        this.devNullThings();
+    }
+
     @Override
     public String toString() {
-        return "Mimutrooll[имя = " + this.getName() + ", возраст = " +
+        return "Mumintroll[имя = " + this.getName() + ", возраст = " +
                 this.getAge() + ", пол = " + this.getSmbdGender() +
                 ", смотрит на  " + this.getDir() + ", находится "+ this.getSpace() + "]";
     }
@@ -37,4 +62,3 @@ public class Mumintroll extends Character {
                 this.getName().equals(mumintroll.getName());
     }
 }
-///sfdifkdgfgsdfs

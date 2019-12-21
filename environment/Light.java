@@ -6,7 +6,7 @@ public class Light implements IStatic {
 
     public Light(String name, Space space) {
         this.name = name;
-        this.space = space;
+        this.setSpace(space);
     }
     public String toString() {
 
@@ -28,11 +28,10 @@ public class Light implements IStatic {
     public void changeSpace (Space space){
         getSpace().exitSpace(this);
         this.setSpace(space);
-        space.addToSpace(this);
     }
 
     public void setSpace(Space space) {
-
+        space.addToSpace(this);
         this.space = space;
     }
 

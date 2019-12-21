@@ -1,5 +1,6 @@
 package laba3.creatures;
 
+import laba3.environment.IStatic;
 import laba3.environment.Space;
 import laba3.environment.Light;
 
@@ -7,11 +8,10 @@ import java.util.ArrayList;
 
 public class Rat extends Character {
 
-    //
+    public Pocket pocket = new Pocket("карман");
+
     public Rat(String name, int age, Gender smbdGender, Color col, TypeOfSkin type, Space space, Direction dir) {
-        //
         super(name, age, smbdGender, col, type, space, dir);
-        //
     }
 
     @Override
@@ -48,19 +48,26 @@ public class Rat extends Character {
                 this.getType() == rat.getType();
     }
 
+
     @Override
     public void go(Space space) {
         ArrayList objects = this.getSpace().getObjects();
         Boolean goAwayFromDark = true;
+
         for (Object obj : objects) {
-            if (obj instanceof Light){ goAwayFromDark = false; }
+            if (obj instanceof Light){
+                goAwayFromDark = false;
+            }
         }
+
         if (goAwayFromDark){
             System.out.println(this.getName() + " отделилась от темного " + this.getSpace().getName() );
         }
-        System.out.println(this.getName() + " движется и шаркает");
+
+        System.out.println(this.getName() + " движется и шаркает к " + space.getName() );
         changeSpace(space);
         objects = space.getObjects();
+
         for (Object obj : objects) {
             if (obj instanceof Light){
                 this.blink((Light) obj);
@@ -68,6 +75,7 @@ public class Rat extends Character {
         }
 
 }
+
 
 
     public final void watchEvil (Character... smbd){
@@ -86,5 +94,49 @@ public class Rat extends Character {
         {
             System.out.println(this.getName() + " трясет усами");
         }
+    public void putInPocket (IDunamic thing, Pocket pocket) {
+        this.deleteThing(thing);
+        System.out.println(this.getName() + " положил " + thing.getName() +" в "+ pocket.getName());
+    }
+    public void takeOutOfPocet(IDunamic thing) {
+        this.addThing(thing);
+        System.out.println(this.getName() + " взял из  " + thing.getName());
+    }
+
+    public static class Pocket implements IStatic {
+        private String name;
+        private ArrayList<IDunamic> things = new ArrayList ();
+        public Pocket(String name, IDunamic ... things) {
+            this.name = name;
+            for(IDunamic obj : things) {
+                this.things.add(obj);
+            }
+        }
+
+        @Override
+        public String toString() {
+            return this.getName();
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public ArrayList<IDunamic> getThings() {
+            return things;
+        }
+        public void addThing(IDunamic thing) {
+            this.things.add(thing);
+        }
+
+        public void devNullThings() {
+            this.things = new ArrayList<IDunamic>();
+        }
+        public void deleteThing(IDunamic thing) {
+            this.things.remove(thing);
+        }
+
+
+    }
 
 }
