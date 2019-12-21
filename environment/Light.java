@@ -1,4 +1,4 @@
-package laba3.environment;
+package laba4.environment;
 
 public class Light implements IStatic {
     private String name;

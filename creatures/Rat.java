@@ -1,17 +1,26 @@
-package laba3.creatures;
+package laba4.creatures;
 
-import laba3.environment.IStatic;
-import laba3.environment.Space;
-import laba3.environment.Light;
+import laba4.environment.IStatic;
+import laba4.environment.Space;
+import laba4.environment.Light;
 
 import java.util.ArrayList;
 
 public class Rat extends Character {
 
-    public Pocket pocket = new Pocket("карман");
+    private Pocket pocket;
 
-    public Rat(String name, int age, Gender smbdGender, Color col, TypeOfSkin type, Space space, Direction dir) {
+    public Rat(String name, int age, Gender smbdGender, Color col, TypeOfSkin type, Space space, Direction dir, String namePocet) {
         super(name, age, smbdGender, col, type, space, dir);
+        this.pocket = new Pocket(namePocet);
+    }
+    public Rat(String name, int age, Gender smbdGender, Color col, TypeOfSkin type, Space space, Direction dir, String namePocet, IDunamic ... things) {
+        super(name, age, smbdGender, col, type, space, dir);
+        this.pocket = new Pocket(namePocet);
+        for(IDunamic obj : things) {
+            this.getPocket().getThings().add(obj);
+        }
+
     }
 
     @Override
@@ -94,14 +103,21 @@ public class Rat extends Character {
         {
             System.out.println(this.getName() + " трясет усами");
         }
-    public void putInPocket (IDunamic thing, Pocket pocket) {
-        this.deleteThing(thing);
-        System.out.println(this.getName() + " положил " + thing.getName() +" в "+ pocket.getName());
+
+    public Pocket getPocket() {
+        return pocket;
+    }
+
+    public void putInPocket (IDunamic thing) {
+        this.getPocket().deleteThing(thing);
+        System.out.println(this.getName() + " сунула " + thing.getName() +" в "+ getPocket().getName());
     }
     public void takeOutOfPocet(IDunamic thing) {
-        this.addThing(thing);
-        System.out.println(this.getName() + " взял из  " + thing.getName());
+        this.getPocket().addThing(thing);
+        System.out.println(this.getName() + " взял из "+ getPocket().getName() + thing.getName());
     }
+
+
 
     public static class Pocket implements IStatic {
         private String name;
@@ -111,6 +127,9 @@ public class Rat extends Character {
             for(IDunamic obj : things) {
                 this.things.add(obj);
             }
+        }
+        public Pocket(String name) {
+            this.name = name;
         }
 
         @Override

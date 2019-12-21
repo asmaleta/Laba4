@@ -1,12 +1,12 @@
-package laba3.creatures;
+package laba4.creatures;
 
 
-import laba3.environment.IStatic;
-import laba3.environment.Space;
+import laba4.environment.IStatic;
+import laba4.environment.Space;
 
 import java.util.ArrayList;
 
-public abstract class Character implements laba3.creatures.IDunamic {
+public abstract class Character implements laba4.creatures.IDunamic {
 
     public enum Gender {MALE, FEMALE}
 

@@ -1,7 +1,7 @@
-package laba3.creatures;
+package laba4.creatures;
 
-import laba3.environment.IStatic;
-import laba3.environment.Space;
+import laba4.environment.IStatic;
+import laba4.environment.Space;
 
 public interface IDunamic extends IStatic {
     void changeSpace(Space space);

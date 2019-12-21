@@ -1,6 +1,6 @@
-package laba3.creatures;
+package laba4.creatures;
 
-import laba3.environment.Space;
+import laba4.environment.Space;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package laba3.environment;
+package laba4.environment;
 
 public interface IStatic {
 
