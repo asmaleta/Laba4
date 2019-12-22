@@ -20,6 +20,8 @@ public class Mumintroll extends Character {
         this.changeSpace(space);
         System.out.println(this.getName() + " бросился к " + this.getSpace().getName());
     }
+
+
     public void sitRound () {
         System.out.println(this.getName() + " уселся вокруг " + this.getSpace().getName());
     }

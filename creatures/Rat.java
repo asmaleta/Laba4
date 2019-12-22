@@ -1,8 +1,10 @@
 package laba4.creatures;
 
 import laba4.environment.IStatic;
+import laba4.environment.Item;
 import laba4.environment.Space;
 import laba4.environment.Light;
+import laba4.exceptions.NoLookAtYouselfExeption;
 
 import java.util.ArrayList;
 
@@ -87,7 +89,12 @@ public class Rat extends Character {
 
 
 
-    public final void watchEvil (Character... smbd){
+    public final void watchEvil (Character... smbd) throws NoLookAtYouselfExeption {
+        for (Character i: smbd){
+            if (i.equals(this)){
+                throw new  NoLookAtYouselfExeption("Ошибка! Нельзя посмотреть на себя");
+            }
+        }
         for (Character i: smbd) {
             System.out.println(this.getName() + " злобно посмотрела на " + i.getName());
         }
@@ -95,13 +102,24 @@ public class Rat extends Character {
 
 
     public final void blink (Light ray) {
+
             System.out.println(this.getName() + " моргает от " + ray.getName());
 
     }
 
-        public final void shake ()
+        public final void shake (String name)
         {
-            System.out.println(this.getName() + " трясет усами");
+            class ShakeObject {
+                private String name;
+                ShakeObject (String name){
+                    this.name = name;
+                }
+
+                public String getName() {
+                    return name;
+                }
+            }
+            System.out.println(this.getName() + " трясет " + (new ShakeObject(name)).getName());
         }
 
     public Pocket getPocket() {
@@ -117,7 +135,21 @@ public class Rat extends Character {
         System.out.println(this.getName() + " взял из "+ getPocket().getName() + thing.getName());
     }
 
-
+    public void searchItem (Space space, Item item) {
+        ISight iSight = new ISight() {
+            @Override
+            public void sight(ArrayList<Item> items) {
+                System.out.println("Взгляд блуждает по " + space.getName());
+                for (Object obj: items) {
+                    if (obj instanceof Item && (((Item) obj).getName().equals(item.getName()))) {
+                        System.out.println("Взгляд остановился на " + item.getName());
+                        break;
+                    }
+                }
+            }
+        };
+        iSight.sight(space.getObjects());
+    }
 
     public static class Pocket implements IStatic {
         private String name;

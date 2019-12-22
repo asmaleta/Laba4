@@ -3,6 +3,8 @@ package laba4.creatures;
 
 import laba4.environment.IStatic;
 import laba4.environment.Space;
+import laba4.exceptions.NegativeAgeExeption;
+import laba4.exceptions.NoLookAtYouselfExeption;
 
 import java.util.ArrayList;
 
@@ -53,34 +55,47 @@ public abstract class Character implements laba4.creatures.IDunamic {
     public Character(String name, int age, Gender smbdGender, Color col, TypeOfSkin type, Space space, Direction dir) {
         this.setSpace(space);
         this.name = name;
-        this.age = age;
         this.smbdGender = smbdGender;
         this.col = col;
         this.type = type;
         this.dir = dir;
+        if (age > -1){
+            this.age = age;
+        }
+        else {
+            throw new NegativeAgeExeption("возраст не может быть отрицаткльным");
+        }
     }
 
     public Character(String name, int age, Gender smbdGender, Direction dir, Space space) {
         this.name = name;
-        this.age = age;
         this.smbdGender = smbdGender;
         this.dir = dir;
         this.setSpace(space);
+        if (age > -1){
+            this.age = age;
+        }
+        else {
+            throw new NegativeAgeExeption("возраст не может быть отрицаткльным");
+        }
     }
     public Character(String name, int age, Gender smbdGender, Direction dir, Space space, IDunamic... things ) {
         this.name = name;
-        this.age = age;
         this.smbdGender = smbdGender;
         this.dir = dir;
         this.setSpace(space);
         for(IDunamic obj : things) {
             this.things.add(obj);
         }
-
+        if (age > -1){
+            this.age = age;
+        }
+        else {
+            throw new NegativeAgeExeption("возраст не может быть отрицаткльным");
+        }
     }
     public Character(String name, int age, Gender smbdGender, Color col, TypeOfSkin type, Space space, Direction dir, IDunamic... things) {
         this.name = name;
-        this.age = age;
         this.smbdGender = smbdGender;
         this.col = col;
         this.type = type;
@@ -88,6 +103,12 @@ public abstract class Character implements laba4.creatures.IDunamic {
         this.setSpace(space);
         for(IDunamic obj : things) {
             this.things.add(obj);
+        }
+        if (age > -1){
+            this.age = age;
+        }
+        else {
+            throw new NegativeAgeExeption("возраст не может быть отрицаткльным");
         }
     }
 
@@ -115,7 +136,12 @@ public abstract class Character implements laba4.creatures.IDunamic {
         return name;
     }
 
-    public void watch(Character object) {
+    public void watch(Character object) throws NoLookAtYouselfExeption {
+        if (object.equals(this))
+        {
+            throw new  NoLookAtYouselfExeption("Ошибка! Нельзя посмотреть на себя");
+        }
+
         if (this.watchNowThisObject(object)) {
             System.out.println("Персонаж " + this.getName() + " посмотрел на персонажа " + object.getName());
         } else {
@@ -126,15 +152,19 @@ public abstract class Character implements laba4.creatures.IDunamic {
     public void watch(IDunamic object) {
             System.out.println("Персонаж " + this.getName() + " посмотрел на  " + object.getName());
     }
-    public void watch(IStatic object) {
-        System.out.println("Персонаж " + this.getName() + " посмотрел на " + object.getName());
-    }
 
     public boolean watchNowThisObject(Character object) {
         return this.dir == dir.inverseDirection(object.dir);
     }
 
-
+    public void sit (boolean sit ,Space space){
+        if (sit){
+            System.out.println(this.getName() + " сел в место " + space.getName());
+        }
+        else{
+            System.out.println(this.getName() + " не сел в место " + space.getName());
+        }
+    }
 
     public void go(Space space) {
         changeSpace(space);
