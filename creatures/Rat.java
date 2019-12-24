@@ -101,14 +101,13 @@ public class Rat extends Character {
     }
 
 
-    public final void blink (Light ray) {
+    public void blink (Light ray) {
 
             System.out.println(this.getName() + " моргает от " + ray.getName());
 
     }
 
-        public final void shake (String name)
-        {
+    public  void shake (String name){
             class ShakeObject {
                 private String name;
                 ShakeObject (String name){
@@ -120,7 +119,7 @@ public class Rat extends Character {
                 }
             }
             System.out.println(this.getName() + " трясет " + (new ShakeObject(name)).getName());
-        }
+    }
 
     public Pocket getPocket() {
         return pocket;
@@ -149,6 +148,22 @@ public class Rat extends Character {
             }
         };
         iSight.sight(space.getObjects());
+    }
+    public class Mustache{
+        private String name;
+        private int lengthCM;
+        public Mustache(String name, int lengthCM) {
+            this.name = name;
+            this.lengthCM = lengthCM;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getLengthCM() {
+            return lengthCM;
+        }
     }
 
     public static class Pocket implements IStatic {

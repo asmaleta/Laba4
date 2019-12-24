@@ -33,6 +33,7 @@ public class Main {
             Mumintroll muminMom = new Mumintroll("Муми-мама", 40, Character.Gender.FEMALE, Character.Direction.EAST,centerOfRoom );
             Mumintroll muminDad = new Mumintroll("Мумми-папа", 41, Character.Gender.MALE, Character.Direction.EAST, dinnerTable );
             Rat emma= new Rat("Эмма", 25, Character.Gender.FEMALE, Character.Color.GREY, Character.TypeOfSkin.SHRIVELED, angle, Character.Direction.EAST, "карман");
+            Rat.Mustache mustache =  emma.new Mustache("седые усы",4);
             muminMom.takeThing(plateWithPorridge);
             muminMom.putThing(plateWithPorridge,floorUnderPalm);
 
@@ -60,7 +61,7 @@ public class Main {
 
             emma.go(tochkaRyadom);
 
-            emma.shake("седыми усами");
+            emma.shake(mustache.getName());
             try {
                     emma.watchEvil(muminSon, muminMom, muminDad);
             }catch (NoLookAtYouselfExeption e){
